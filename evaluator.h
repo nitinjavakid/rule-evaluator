@@ -1,21 +1,21 @@
 #ifndef EVALUATOR_H
 #define EVALUATOR_H
-typedef enum sym_rec_type
-{
-  var,
-  func
-} sym_rec_type_t;
+
+#include <vector>
+#include <inttypes.h>
 
 typedef struct sym_rec
 {
-  sym_rec_type_t type;
+  int type;
   union {
-    int var;
-    int (*func0)();
-    int (*func1)(int);
-    int (*func2)(int, int);
-    int (*func3)(int, int, int);
+    int64_t var;
+    int64_t (*func0)();
+    int64_t (*func1)(int64_t);
+    int64_t (*func2)(int64_t, int64_t);
+    int64_t (*func3)(int64_t, int64_t, int64_t);
   } u;
+
+  sym_rec();
 } sym_rec_t;
 
 #endif
