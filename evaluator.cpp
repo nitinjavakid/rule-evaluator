@@ -208,11 +208,7 @@ int main(int argc, const char **argv)
   });
 
   FUNC2("date_offset", [](int64_t hours, int64_t mins) {
-      struct tm offset;
-      memset(&offset, 0, sizeof(offset));
-      offset.tm_hour = hours;
-      offset.tm_min = mins;
-      return mktime(&offset);
+      return 60*hours*60 + mins * 60;
   });
 
   return yyparse();
