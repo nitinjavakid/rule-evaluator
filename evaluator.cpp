@@ -2,9 +2,10 @@
 #include <cstring>
 #include <string>
 #include <unordered_map>
+#include <evaluator.h>
 #include <parser.hpp>
 
-std::unordered_map<std::string, int> s_variables;
+std::unordered_map<std::string, sym_rec_t> s_symbols;
 
 int
 yylex(void)
@@ -39,8 +40,8 @@ yylex(void)
     }
     else
     {
-      yylval = s_variables[op];
-      return NUM;
+      *((sym_rec_t **) &yylval) = &(s_symbols[op]);
+      return VAR;
     }
   }
   else if(c != EOF && ((c == '>') || (c == '<') || (c == '=')))
@@ -113,7 +114,9 @@ int main(int argc, const char **argv)
     int value;
     sscanf(argv[idx], "%49[^=]=%d", name, &value);
     name[49] = '\0';
-    s_variables[name] = value;
+    sym_rec_t &symbol = s_symbols[name];
+    symbol.type = var;
+    symbol.u.var = value;
   }
 
   return yyparse();
