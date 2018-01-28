@@ -30,7 +30,7 @@ yylex(void)
   {
     char op[50];
     ungetc(c, stdin);
-    scanf("%49[a-zA-Z0-9]", op);
+    scanf("%49[a-zA-Z0-9_]", op);
     op[49] = '\0';
     if(strcasecmp(op, "and") == 0)
     {
