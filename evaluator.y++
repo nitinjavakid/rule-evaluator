@@ -9,7 +9,7 @@ void yyerror(const char *);
 %define api.value.type union
 %token <int64_t> NUM
 %token <sym_rec_t *> VAR FUNC
-%type  <int64_t> expr arg
+%type  <int64_t> expr
 
 %left OR
 %left AND
@@ -27,7 +27,9 @@ input:
 
 line:
   '\n'
+| '\r'
 | expr '\n'  { printf ("%" PRId64 "\n", $1); }
+| expr '\r'  { printf ("%" PRId64 "\n", $1); }
 ;
 
 expr:
